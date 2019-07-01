@@ -1,5 +1,8 @@
 package com.juangomez.heroes_jetpack.ui.presenter
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.juangomez.heroes_jetpack.common.weak
 import com.juangomez.heroes_jetpack.domain.model.SuperHero
 import com.juangomez.heroes_jetpack.domain.usecase.GetSuperHeroById
@@ -11,7 +14,7 @@ class EditSuperHeroPresenter(
     private val getSuperHeroById: GetSuperHeroById,
     private val saveSuperHero: SaveSuperHero,
     private val executor: ExecutorService
-) : EditSuperHeroListener {
+) : EditSuperHeroListener, LifecycleObserver {
 
     private val view: View? by weak(view)
     private lateinit var id: String
@@ -21,11 +24,13 @@ class EditSuperHeroPresenter(
         this.id = id
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
         view?.showLoading()
         refreshSuperHero()
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         executor.shutdownNow()
     }

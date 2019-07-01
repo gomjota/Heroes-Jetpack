@@ -28,7 +28,7 @@ class EditSuperHeroActivity : BaseActivity(), EditSuperHeroPresenter.View {
         }
     }
 
-    private val presenter: EditSuperHeroPresenter by instance()
+    override val presenter: EditSuperHeroPresenter by instance()
     override val layoutId = R.layout.edit_super_hero_activity
     override val toolbarView: Toolbar
         get() = toolbar

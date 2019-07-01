@@ -18,7 +18,7 @@ import org.kodein.di.erased.provider
 
 class MainActivity : BaseActivity(), SuperHeroesPresenter.View {
 
-    private val presenter: SuperHeroesPresenter by instance()
+    override val presenter: SuperHeroesPresenter by instance()
     private lateinit var adapter: SuperHeroesAdapter
     override val layoutId: Int = R.layout.main_activity
     override val toolbarView: Toolbar
