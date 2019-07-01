@@ -1,42 +1,34 @@
 package com.juangomez.heroes_jetpack.repository
 
 import com.juangomez.heroes_jetpack.domain.model.SuperHero
+import com.juangomez.heroes_jetpack.repository.room.SuperHeroDao
+import com.juangomez.heroes_jetpack.repository.room.SuperHeroEntity
 import java.util.concurrent.ExecutorService
 
 class LocalSuperHeroDataSource(
+    private val dao: SuperHeroDao,
     private val executor: ExecutorService
 ) {
-    companion object {
-        private const val BIT_TIME = 250L
-    }
+    fun getAllSuperHeroes(): List<SuperHero> =
+        dao.getAll()
+            .map { it.toSuperHero() }
 
-    private val superHeroes: MutableMap<String, SuperHero> = mutableMapOf()
-
-    fun getAllSuperHeroes(): List<SuperHero> {
-        waitABit()
-        return superHeroes.values.toList()
-    }
-
-    fun get(id: String): SuperHero? {
-        waitABit()
-        return superHeroes[id]
-    }
+    fun get(id: String): SuperHero? =
+        dao.getById(id)?.toSuperHero()
 
     fun saveAll(all: List<SuperHero>) = executor.execute {
-        waitABit()
-        superHeroes.clear()
-        superHeroes.putAll(all.associateBy { it.id })
+        dao.deleteAll()
+        dao.insertAll(all.map { it.toEntity() })
     }
 
     fun save(superHero: SuperHero): SuperHero {
-        executor.execute {
-            waitABit()
-            superHeroes[superHero.id] = superHero
-        }
+        executor.execute { dao.insertAll(listOf(superHero.toEntity())) }
         return superHero
     }
 
-    private fun waitABit() {
-        Thread.sleep(BIT_TIME)
-    }
+    private fun SuperHeroEntity.toSuperHero(): SuperHero =
+        SuperHero(id, name, photo, isAvenger, description)
+
+    private fun SuperHero.toEntity(): SuperHeroEntity =
+        SuperHeroEntity(id, name, photo, isAvenger, description)
 }
