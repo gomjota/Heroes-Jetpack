@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.juangomez.heroes_jetpack.R
 import com.juangomez.heroes_jetpack.common.module
+import com.juangomez.heroes_jetpack.databinding.EditSuperHeroActivityBinding
 import com.juangomez.heroes_jetpack.domain.model.SuperHero
 import com.juangomez.heroes_jetpack.domain.usecase.GetSuperHeroById
 import com.juangomez.heroes_jetpack.domain.usecase.SaveSuperHero

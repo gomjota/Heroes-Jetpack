@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil.bind
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juangomez.heroes_jetpack.R
 import com.juangomez.heroes_jetpack.common.module
+import com.juangomez.heroes_jetpack.databinding.MainActivityBinding
 import com.juangomez.heroes_jetpack.domain.model.SuperHero
 import com.juangomez.heroes_jetpack.domain.usecase.GetSuperHeroes
 import com.juangomez.heroes_jetpack.ui.presenter.SuperHeroesPresenter

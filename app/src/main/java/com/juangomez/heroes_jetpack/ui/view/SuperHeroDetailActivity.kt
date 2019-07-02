@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil.bind
 import com.juangomez.heroes_jetpack.R
 import com.juangomez.heroes_jetpack.common.module
+import com.juangomez.heroes_jetpack.databinding.SuperHeroDetailActivityBinding
 import com.juangomez.heroes_jetpack.domain.model.SuperHero
 import com.juangomez.heroes_jetpack.domain.usecase.GetSuperHeroById
 import com.juangomez.heroes_jetpack.ui.presenter.SuperHeroDetailPresenter
