@@ -16,7 +16,7 @@ import org.kodein.di.erased.bind
 import org.kodein.di.erased.instance
 import org.kodein.di.erased.provider
 
-class MainActivity : BaseActivity(), SuperHeroesPresenter.View {
+class MainActivity : BaseActivity<MainActivityBinding>(), SuperHeroesPresenter.View {
 
     override val presenter: SuperHeroesPresenter by instance()
     private lateinit var adapter: SuperHeroesAdapter
@@ -28,6 +28,11 @@ class MainActivity : BaseActivity(), SuperHeroesPresenter.View {
         super.onCreate(savedInstanceState)
         initializeAdapter()
         initializeRecyclerView()
+    }
+
+    override fun configureBinding(binding: MainActivityBinding) {
+        binding.isLoading = false
+        binding.isShowingEmptyCase = false
     }
 
     override fun onResume() {

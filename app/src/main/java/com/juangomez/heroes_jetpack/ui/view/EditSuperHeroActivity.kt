@@ -17,7 +17,9 @@ import org.kodein.di.erased.bind
 import org.kodein.di.erased.instance
 import org.kodein.di.erased.provider
 
-class EditSuperHeroActivity : BaseActivity(), EditSuperHeroPresenter.View {
+class EditSuperHeroActivity :
+    BaseActivity<EditSuperHeroActivityBinding>(),
+    EditSuperHeroPresenter.View {
     companion object {
         private const val SUPER_HERO_ID_KEY = "super_hero_id_key"
 
@@ -53,6 +55,11 @@ class EditSuperHeroActivity : BaseActivity(), EditSuperHeroPresenter.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+    }
+
+    override fun configureBinding(binding: EditSuperHeroActivityBinding) {
+        binding.listener = presenter
+        binding.isLoading = false
     }
 
     override fun prepare(intent: Intent?) {

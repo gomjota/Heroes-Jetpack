@@ -17,7 +17,9 @@ import org.kodein.di.erased.bind
 import org.kodein.di.erased.instance
 import org.kodein.di.erased.provider
 
-class SuperHeroDetailActivity : BaseActivity(), SuperHeroDetailPresenter.View {
+class SuperHeroDetailActivity :
+    BaseActivity<SuperHeroDetailActivityBinding>(),
+    SuperHeroDetailPresenter.View {
 
     companion object {
         private const val SUPER_HERO_ID_KEY = "super_hero_id_key"
@@ -38,6 +40,11 @@ class SuperHeroDetailActivity : BaseActivity(), SuperHeroDetailPresenter.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         edit_super_hero.setOnClickListener { presenter.onEditSelected() }
+    }
+
+    override fun configureBinding(binding: SuperHeroDetailActivityBinding) {
+        binding.listener = presenter
+        binding.isLoading = false
     }
 
     override fun onResume() {
